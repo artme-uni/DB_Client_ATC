@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+<entry key="Telephone_exchanges">CREATE TABLE Telephone_exchanges (
+    Telephone_exchange_ID INT PRIMARY KEY)</entry>
+
+<entry key="City_exchanges">CREATE TABLE City_exchanges (
+    Telephone_exchange_ID INT NOT NULL REFERENCES TELEPHONE_EXCHANGES(TELEPHONE_EXCHANGE_ID) ON DELETE CASCADE,
+    City_name VARCHAR2(40) NOT NULL)</entry>
+
+<entry key="Institutional_exchanges">CREATE TABLE Institutional_exchanges (
+    Telephone_exchange_ID INT NOT NULL REFERENCES TELEPHONE_EXCHANGES(TELEPHONE_EXCHANGE_ID) ON DELETE CASCADE,
+    Institution_name VARCHAR2(40) NOT NULL)</entry>
+
+<entry key="Departmental_exchanges">CREATE TABLE Departmental_exchanges (
+    Telephone_exchange_ID INT NOT NULL REFERENCES TELEPHONE_EXCHANGES(TELEPHONE_EXCHANGE_ID) ON DELETE CASCADE,
+    Department_name VARCHAR2(40) NOT NULL)</entry>
+
+<entry key="Connection_prices">CREATE TABLE Connection_prices (
+    Connection_price_ID INT PRIMARY KEY,
+    Price_name VARCHAR2(100) UNIQUE NOT NULL,
+    Price NUMBER(15, 2) NOT NULL CHECK(Price >= 0))</entry>
+
+<entry key="Long_distance_call_prices">CREATE TABLE Long_distance_call_prices (
+    Long_distance_call_price_ID INT PRIMARY KEY,
+    Price_name VARCHAR2(100) UNIQUE NOT NULL,
+    Price_per_minute NUMBER(15, 2) NOT NULL CHECK(Price_per_minute >= 0))</entry>
+
+<entry key="Phone_types">CREATE TABLE Phone_types (
+    Phone_type_ID INT PRIMARY KEY,
+    Type_name VARCHAR2(40) UNIQUE NOT NULL)</entry>
+
+<entry key="Subscription_fees">CREATE TABLE Subscription_fees (
+    Subscription_fee_ID INT PRIMARY KEY,
+    Phone_number_type_ID INT NOT NULL REFERENCES PHONE_TYPES(PHONE_TYPE_ID) ON DELETE CASCADE,
+    Is_deadhead INT DEFAULT 0 CHECK (Is_deadhead IN (0,1)) NOT NULL,
+    Has_long_distance_calls INT DEFAULT 0 CHECK (Has_long_distance_calls IN (0,1)) NOT NULL,
+    Subscription_fee NUMBER(15, 2) NOT NULL CHECK(Subscription_fee >= 0),
+    CONSTRAINT Unique_subscription_fee UNIQUE (Phone_number_type_ID, Is_deadhead, Has_long_distance_calls))</entry>
+
+<entry key="Phone_numbers">CREATE TABLE Phone_numbers (
+    Phone_number_ID INT PRIMARY KEY,
+    Phone_number VARCHAR2(40) UNIQUE NOT NULL,
+    TELEPHONE_EXCHANGE_ID INT NOT NULL REFERENCES TELEPHONE_EXCHANGES(TELEPHONE_EXCHANGE_ID) ON DELETE CASCADE,
+    Is_Free INT DEFAULT 0 CHECK (Is_Free IN (0,1)) NOT NULL)</entry>
+
+<entry key="Clients">CREATE TABLE Clients (
+    Client_ID INT PRIMARY KEY,
+    Second_name VARCHAR2(100) NOT NULL,
+    First_name VARCHAR2(70) NOT NULL,
+    Middle_name VARCHAR2(80) NOT NULL,
+    Gender CHAR CHECK (Gender IN ('F', 'M')) NOT NULL,
+    Birth_date DATE NOT NULL,
+    Is_deadhead INT DEFAULT 0 CHECK (Is_deadhead IN (0,1)) NOT NULL)</entry>
+
+<entry key="Callers">CREATE TABLE Callers (
+    Caller_ID INT PRIMARY KEY,
+    Telephone_exchange_ID INT NOT NULL REFERENCES TELEPHONE_EXCHANGES(TELEPHONE_EXCHANGE_ID) ON DELETE CASCADE,
+    Client_ID INT NOT NULL REFERENCES CLIENTS(CLIENT_ID) ON DELETE CASCADE,
+    Is_blocked INT DEFAULT 0 CHECK (Is_blocked IN (0,1)) NOT NULL,
+    Has_long_distance_calls INT DEFAULT 0 CHECK (Has_long_distance_calls IN (0,1)) NOT NULL,
+    CONSTRAINT Unique_caller UNIQUE (Telephone_exchange_ID, Client_ID))</entry>
+
+<entry key="Address">CREATE TABLE Address (
+    Address_ID INT PRIMARY KEY,
+    Zip_code INT CHECK (Zip_code > 0) NOT NULL,
+    City VARCHAR2(80) NOT NULL,
+    Region VARCHAR2(80) NOT NULL,
+    Street VARCHAR2(80) NOT NULL,
+    Building_number INT CHECK (Building_number > 0) NOT NULL,
+    CONSTRAINT Unique_address UNIQUE (Zip_code, City, Region, Street, Building_number))</entry>
+
+<entry key="Phones">CREATE TABLE Phones (
+    Phone_ID INT PRIMARY KEY,
+    Phone_number_ID INT NOT NULL REFERENCES PHONE_NUMBERS(PHONE_NUMBER_ID) ON DELETE CASCADE,
+    Phone_type_ID INT NOT NULL REFERENCES PHONE_TYPES(PHONE_TYPE_ID) ON DELETE CASCADE,
+    Caller_ID INT NOT NULL REFERENCES CALLERS(CALLER_ID) ON DELETE CASCADE,
+    Address_ID INT NOT NULL REFERENCES ADDRESS(ADDRESS_ID) ON DELETE CASCADE,
+    Apartment_number INT CHECK (Apartment_number > 0) NOT NULL)</entry>
+
+<entry key="Balances">CREATE TABLE Balances (
+    Caller_ID INT UNIQUE NOT NULL REFERENCES CALLERS(CALLER_ID) ON DELETE CASCADE,
+    Long_distance_calls_debt NUMBER(15, 2) DEFAULT 0 NOT NULL CHECK(Long_distance_calls_debt >= 0),
+    Subscription_debt NUMBER(15, 2) DEFAULT 0 NOT NULL CHECK(Subscription_debt >= 0),
+    Penalty_interest NUMBER(15, 2) DEFAULT 0 NOT NULL CHECK(Penalty_interest >= 0),
+    LONG_DIST_DEBT_DATE DATE,
+    SUBSCRIPTION_DEBT_DATE DATE)</entry>
+
+<entry key="Public_phones">CREATE TABLE Public_phones (
+    Public_phone_ID INT PRIMARY KEY,
+    Address_ID INT NOT NULL REFERENCES ADDRESS(ADDRESS_ID) ON DELETE CASCADE,
+    Telephone_exchange_ID INT NOT NULL REFERENCES TELEPHONE_EXCHANGES(TELEPHONE_EXCHANGE_ID) ON DELETE CASCADE,
+    CONSTRAINT Unique_public_phone UNIQUE (Address_ID, Telephone_exchange_ID))</entry>
+
+<entry key="Long_distance_calls">CREATE TABLE Long_distance_calls (
+    Long_distance_call_ID INT PRIMARY KEY,
+    Source_phone_ID INT NOT NULL REFERENCES PHONES(PHONE_ID) ON DELETE CASCADE,
+    Destination_phone_ID INT NOT NULL REFERENCES PHONES(PHONE_ID) ON DELETE CASCADE,
+    Start_date DATE NOT NULL,
+    End_date DATE NOT NULL,
+    Call_price NUMBER(15, 2) CHECK(Call_price >= 0),
+    CONSTRAINT Unique_long_distance_calls UNIQUE (Destination_phone_ID, Source_phone_ID, Start_date))</entry>
+
+<entry key="Connection_requests">CREATE TABLE Connection_requests (
+    Connection_request_ID INT PRIMARY KEY,
+    Telephone_exchange_ID INT NOT NULL REFERENCES TELEPHONE_EXCHANGES(TELEPHONE_EXCHANGE_ID) ON DELETE CASCADE,
+    Address_ID INT NOT NULL REFERENCES ADDRESS(ADDRESS_ID) ON DELETE CASCADE,
+    Apartment_number INT CHECK (Apartment_number > 0) NOT NULL,
+    Client_ID INT NOT NULL REFERENCES CLIENTS(CLIENT_ID) ON DELETE CASCADE,
+    Request_date DATE NOT NULL,
+    CONSTRAINT Unique_long_distance_call UNIQUE (Telephone_exchange_ID, Address_ID, Client_ID))</entry>
+
+
+<entry key="Installing_possibilities">CREATE TABLE INSTALLING_POSSIBILITIES (
+    INSTALLING_POSSIBILITY_ID INT PRIMARY KEY,
+    ADDRESS_ID INT NOT NULL REFERENCES ADDRESS(ADDRESS_ID) ON DELETE CASCADE,
+    TELEPHONE_EXCHANGE_ID INT NOT NULL REFERENCES TELEPHONE_EXCHANGES(TELEPHONE_EXCHANGE_ID) ON DELETE CASCADE,
+    CONSTRAINT Unique_INSTALLING_POSSIBILITY UNIQUE (ADDRESS_ID, TELEPHONE_EXCHANGE_ID))</entry>
+
+</properties>

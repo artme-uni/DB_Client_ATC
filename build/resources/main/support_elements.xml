@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+<entry key="get_age">CREATE OR REPLACE FUNCTION get_age (birthdate IN DATE)
+    RETURN INT
+    AS
+        age INT;
+    BEGIN
+        age := floor(months_between(CURRENT_DATE, birthdate) / 12);
+        RETURN age;
+    END;</entry>
+
+<entry key="clients_ages">CREATE OR REPLACE VIEW clients_ages AS
+    SELECT
+        CLIENT_ID,
+        GET_AGE(BIRTH_DATE) AS AGE
+    FROM
+        CLIENTS</entry>
+
+<entry key="caller_addresses">CREATE OR REPLACE VIEW caller_addresses AS
+    SELECT
+        DISTINCT CALLER_ID,
+        ADDR.ADDRESS_ID,
+        REGION,
+        STREET
+    FROM
+        CALLERS JOIN
+        PHONES P USING(CALLER_ID) JOIN
+        ADDRESS ADDR on ADDR.ADDRESS_ID = P.ADDRESS_ID</entry>
+
+<entry key="get_long_distance_debt_age">CREATE OR REPLACE FUNCTION get_long_distance_debt_age(CURRENT_CALLER_ID IN INT)
+    RETURN NUMBER
+    AS
+        age NUMBER;
+        debt_create_date DATE;
+    BEGIN
+        SELECT B.LONG_DIST_DEBT_DATE
+        INTO debt_create_date
+        FROM BALANCES B
+        WHERE CALLER_ID = CURRENT_CALLER_ID;
+
+        age := DAYS_BETWEEN(debt_create_date, CURRENT_DATE);
+        RETURN age;
+    END;</entry>
+
+<entry key="get_subscription_debt_age">CREATE OR REPLACE FUNCTION get_subscription_debt_age(CURRENT_CALLER_ID IN INT)
+    RETURN NUMBER
+    AS
+        age NUMBER;
+        debt_create_date DATE;
+    BEGIN
+        SELECT B.SUBSCRIPTION_DEBT_DATE
+        INTO debt_create_date
+        FROM BALANCES B
+        WHERE CALLER_ID = CURRENT_CALLER_ID;
+
+        age := DAYS_BETWEEN(debt_create_date, CURRENT_DATE);
+        RETURN age;
+    END;</entry>
+
+<entry key="days_between">CREATE OR REPLACE FUNCTION DAYS_BETWEEN(start_date IN DATE, end_date IN DATE)
+    RETURN INT
+    AS
+        days NUMBER;
+    BEGIN
+        days := end_date - start_date;
+        RETURN days;
+    END;</entry>
+
+<entry key="is_debtor">CREATE OR REPLACE FUNCTION is_debtor(CURRENT_CALLER_ID IN INT)
+    RETURN INT
+    AS
+        is_debtor INT;
+        long_distance_debt NUMBER;
+        subscription_dept NUMBER;
+    BEGIN
+        SELECT LONG_DISTANCE_CALLS_DEBT
+        INTO long_distance_debt
+        FROM BALANCES
+        WHERE CALLER_ID = CURRENT_CALLER_ID;
+
+        SELECT SUBSCRIPTION_DEBT
+        INTO subscription_dept
+        FROM BALANCES
+        WHERE CALLER_ID = CURRENT_CALLER_ID;
+
+        IF long_distance_debt > 0 OR subscription_dept > 0 THEN
+        is_debtor := 1;
+        ELSE
+        is_debtor := 0;
+        END IF;
+
+        RETURN is_debtor;
+    END;</entry>
+
+<entry key="get_debtor_count">CREATE OR REPLACE FUNCTION get_debtor_count(EXCHANGE_ID IN INT)
+    RETURN INT
+    AS
+        debtor_count INT;
+    BEGIN
+        SELECT COUNT(CALLER_ID)
+        INTO debtor_count
+        FROM CALLERS
+        WHERE
+        COALESCE(IS_DEBTOR(CALLER_ID), 0) = 1
+        AND CALLERS.TELEPHONE_EXCHANGE_ID = EXCHANGE_ID;
+
+        RETURN debtor_count;
+    END;</entry>
+
+<entry key="exchange_type">CREATE OR REPLACE VIEW exchange_type AS
+    SELECT
+        TE.TELEPHONE_EXCHANGE_ID,
+        CASE
+            WHEN CE.TELEPHONE_EXCHANGE_ID IS NOT NULL THEN 'Городская'
+            WHEN DE.TELEPHONE_EXCHANGE_ID IS NOT NULL THEN 'Ведомственная'
+            WHEN IE.TELEPHONE_EXCHANGE_ID IS NOT NULL THEN 'Учрежденческая'
+        END as EXCHANGE_TYPE
+    FROM
+        TELEPHONE_EXCHANGES TE LEFT JOIN
+        CITY_EXCHANGES CE on TE.TELEPHONE_EXCHANGE_ID = CE.TELEPHONE_EXCHANGE_ID LEFT JOIN
+        DEPARTMENTAL_EXCHANGES DE on TE.TELEPHONE_EXCHANGE_ID = DE.TELEPHONE_EXCHANGE_ID LEFT JOIN
+        INSTITUTIONAL_EXCHANGES IE on TE.TELEPHONE_EXCHANGE_ID = IE.TELEPHONE_EXCHANGE_ID</entry>
+
+<entry key="get_max_debt">CREATE OR REPLACE FUNCTION get_max_debt(EXCHANGE_ID IN INT)
+    RETURN INT
+    AS
+        max_debt INT;
+    BEGIN
+        SELECT
+            MAX(LONG_DISTANCE_CALLS_DEBT + SUBSCRIPTION_DEBT + PENALTY_INTEREST)
+        INTO max_debt
+        FROM
+            BALANCES JOIN
+            CALLERS CA on CA.CALLER_ID = BALANCES.CALLER_ID
+        WHERE
+            CA.TELEPHONE_EXCHANGE_ID = EXCHANGE_ID;
+
+        RETURN max_debt;
+    END;</entry>
+
+<entry key="free_phones_possibilities">CREATE OR REPLACE VIEW FREE_PHONES_POSSIBILITIES AS
+    SELECT
+        DISTINCT
+        PN.PHONE_NUMBER_ID,
+        PN.PHONE_NUMBER,
+        IP.TELEPHONE_EXCHANGE_ID,
+        IP.ADDRESS_ID
+    FROM
+        PHONE_NUMBERS PN
+        INNER JOIN INSTALLING_POSSIBILITIES IP ON IP.TELEPHONE_EXCHANGE_ID = PN.TELEPHONE_EXCHANGE_ID
+        WHERE PN.IS_FREE = 1</entry>
+
+<entry key="debtors_info">CREATE OR REPLACE VIEW debtors_info AS
+    SELECT
+        DISTINCT
+        TELEPHONE_EXCHANGE_ID,
+        CALLER_ID,
+        IS_BLOCKED,
+        SECOND_NAME, FIRST_NAME, MIDDLE_NAME,
+        COALESCE(SUBSCRIPTION_DEBT, 0) AS SUBSCRIPTION_DEBT,
+        COALESCE(LONG_DISTANCE_CALLS_DEBT, 0) AS LD_CALLS_DEBT,
+        GET_SUBSCRIPTION_DEBT_AGE(CALLER_ID)  AS SUBSCRIPTION_DEBT_AGE,
+        GET_LONG_DISTANCE_DEBT_AGE(CALLER_ID) AS LONG_DISTANCE_DEBT_AGE
+    FROM
+        CALLERS CA
+        JOIN CLIENTS CL USING (CLIENT_ID)
+        LEFT JOIN BALANCES B USING (CALLER_ID)</entry>
+
+<entry key="Telephone_exchanges_seq">
+CREATE SEQUENCE Telephone_exchanges_seq START WITH 1
+</entry>
+
+<entry key="Drop_Telephone_exchanges_seq">
+DROP SEQUENCE Telephone_exchanges_seq
+</entry>
+
+<entry key="Telephone_exchange_id_tr">CREATE OR REPLACE TRIGGER Telephone_exchange_id_tr
+    BEFORE INSERT ON Telephone_exchanges
+    FOR EACH ROW
+BEGIN
+    SELECT Telephone_exchanges_seq.nextval
+    INTO :new.Telephone_exchange_ID
+    FROM dual;
+END;
+</entry>
+
+<!--<entry key="City_exchanges_id_tr">-->
+<!--CREATE OR REPLACE TRIGGER City_exchanges_id_tr-->
+<!--BEFORE INSERT ON City_exchanges-->
+<!--FOR EACH ROW-->
+<!--DECLARE id_value    INT;-->
+<!--    BEGIN-->
+<!--        SELECT Telephone_exchanges_seq.NEXTVAL-->
+<!--        INTO id_value-->
+<!--        FROM dual;-->
+
+<!--        EXECUTE IMMEDIATE 'insert into TELEPHONE_EXCHANGES VALUES (' || id_value || ')';-->
+
+<!--        SELECT id_value-->
+<!--        INTO   :new.Telephone_exchange_ID-->
+<!--        FROM   dual;-->
+<!--    END;-->
+<!--</entry>-->
+
+<!--<entry key="Institutional_exchanges_id_tr">-->
+<!--CREATE OR REPLACE TRIGGER Institutional_exchanges_id_tr-->
+<!--BEFORE INSERT ON Institutional_exchanges-->
+<!--FOR EACH ROW-->
+<!--DECLARE id_value    INT;-->
+<!--    BEGIN-->
+<!--        SELECT Telephone_exchanges_seq.NEXTVAL-->
+<!--        INTO id_value-->
+<!--        FROM dual;-->
+
+<!--        EXECUTE IMMEDIATE 'insert into TELEPHONE_EXCHANGES VALUES (' || id_value || ')';-->
+
+<!--        SELECT id_value-->
+<!--        INTO   :new.Telephone_exchange_ID-->
+<!--        FROM   dual;-->
+<!--    END;-->
+<!--</entry>-->
+
+<!--<entry key="Departmental_exchanges_id_tr">-->
+<!--CREATE OR REPLACE TRIGGER Departmental_exchanges_id_tr-->
+<!--BEFORE INSERT ON Departmental_exchanges-->
+<!--FOR EACH ROW-->
+<!--DECLARE id_value    INT;-->
+<!--    BEGIN-->
+<!--        SELECT Telephone_exchanges_seq.NEXTVAL-->
+<!--        INTO id_value-->
+<!--        FROM dual;-->
+
+<!--        EXECUTE IMMEDIATE 'insert into TELEPHONE_EXCHANGES VALUES (' || id_value || ')';-->
+
+<!--        SELECT id_value-->
+<!--        INTO   :new.Telephone_exchange_ID-->
+<!--        FROM   dual;-->
+<!--    END;-->
+<!--</entry>-->
+
+<entry key="Connection_prices_seq">
+CREATE SEQUENCE Connection_prices_seq START WITH 1
+</entry>
+
+<entry key="Drop_Connection_prices_seq">
+DROP SEQUENCE Connection_prices_seq
+</entry>
+
+<entry key="Connection_prices_id_tr">
+CREATE OR REPLACE TRIGGER Connection_prices_id_tr
+BEFORE INSERT ON Connection_prices
+FOR EACH ROW
+    BEGIN
+        SELECT Connection_prices_seq.nextval
+        INTO :new.Connection_price_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="LD_call_prices_seq">
+CREATE SEQUENCE LD_call_prices_seq START WITH 1
+</entry>
+
+<entry key="Drop_LD_call_prices_seq">
+DROP SEQUENCE LD_call_prices_seq
+</entry>
+
+<entry key="LD_call_prices_id_tr">
+CREATE OR REPLACE TRIGGER LD_call_prices_id_tr
+BEFORE INSERT ON Long_distance_call_prices
+FOR EACH ROW
+    BEGIN
+        SELECT LD_call_prices_seq.nextval
+        INTO :new.Long_distance_call_price_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Phone_types_seq">
+CREATE SEQUENCE Phone_types_seq START WITH 1
+</entry>
+
+<entry key="Drop_Phone_types_seq">
+DROP SEQUENCE Phone_types_seq
+</entry>
+
+<entry key="Phone_types_id_tr">
+CREATE OR REPLACE TRIGGER Phone_types_id_tr
+BEFORE INSERT ON Phone_types
+FOR EACH ROW
+    BEGIN
+        SELECT Phone_types_seq.nextval
+        INTO :new.Phone_type_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Subscription_fees_seq">
+CREATE SEQUENCE Subscription_fees_seq START WITH 1
+</entry>
+
+<entry key="Drop_Subscription_fees_seq">
+DROP SEQUENCE Subscription_fees_seq
+</entry>
+
+<entry key="Subscription_fees_id_tr">
+CREATE OR REPLACE TRIGGER Subscription_fees_id_tr
+BEFORE INSERT ON Subscription_fees
+FOR EACH ROW
+    BEGIN
+        SELECT Subscription_fees_seq.nextval
+        INTO :new.Subscription_fee_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Phone_numbers_seq">
+CREATE SEQUENCE Phone_numbers_seq START WITH 1
+</entry>
+
+<entry key="Drop_Phone_numbers_seq">
+DROP SEQUENCE Phone_numbers_seq
+</entry>
+
+<entry key="Phone_numbers_id_tr">
+CREATE OR REPLACE TRIGGER Phone_numbers_id_tr
+BEFORE INSERT ON Phone_numbers
+FOR EACH ROW
+    BEGIN
+        SELECT Phone_numbers_seq.nextval
+        INTO :new.Phone_number_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Clients_seq">
+CREATE SEQUENCE Clients_seq START WITH 1
+</entry>
+
+<entry key="Drop_Clients_seq">
+DROP SEQUENCE Clients_seq
+</entry>
+
+<entry key="Clients_id_tr">
+CREATE OR REPLACE TRIGGER Clients_id_tr
+BEFORE INSERT ON Clients
+FOR EACH ROW
+    BEGIN
+        SELECT Clients_seq.nextval
+        INTO :new.Client_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Callers_seq">
+CREATE SEQUENCE Callers_seq START WITH 1
+</entry>
+
+<entry key="Drop_Callers_seq">
+DROP SEQUENCE Callers_seq
+</entry>
+
+<entry key="Callers_id_tr">
+CREATE OR REPLACE TRIGGER Callers_id_tr
+BEFORE INSERT ON Callers
+FOR EACH ROW
+    BEGIN
+        SELECT Callers_seq.nextval
+        INTO :new.Caller_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Address_seq">
+CREATE SEQUENCE Address_seq START WITH 1
+</entry>
+
+<entry key="Drop_Address_seq">
+DROP SEQUENCE Address_seq
+</entry>
+
+<entry key="Address_id_tr">
+CREATE OR REPLACE TRIGGER Address_id_tr
+BEFORE INSERT ON Address
+FOR EACH ROW
+    BEGIN
+        SELECT Address_seq.nextval
+        INTO :new.Address_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Phones_seq">
+CREATE SEQUENCE Phones_seq START WITH 1
+</entry>
+
+<entry key="Drop_Phones_seq">
+DROP SEQUENCE Phones_seq
+</entry>
+
+<entry key="Phones_id_tr">
+CREATE OR REPLACE TRIGGER Phones_id_tr
+BEFORE INSERT ON Phones
+FOR EACH ROW
+    BEGIN
+        SELECT Phones_seq.nextval
+        INTO :new.Phone_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Public_phones_seq">
+CREATE SEQUENCE Public_phones_seq START WITH 1
+</entry>
+
+<entry key="Drop_Public_phones_seq">
+DROP SEQUENCE Public_phones_seq
+</entry>
+
+<entry key="Public_phones_id_tr">
+CREATE OR REPLACE TRIGGER Public_phones_id_tr
+BEFORE INSERT ON Public_phones
+FOR EACH ROW
+    BEGIN
+        SELECT Public_phones_seq.nextval
+        INTO :new.Public_phone_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Long_distance_calls_seq">
+CREATE SEQUENCE Long_distance_calls_seq START WITH 1
+</entry>
+
+<entry key="Drop_Long_distance_calls_seq">
+DROP SEQUENCE Long_distance_calls_seq
+</entry>
+
+<entry key="Long_distance_calls_id_tr">
+CREATE OR REPLACE TRIGGER Long_distance_calls_id_tr
+BEFORE INSERT ON Long_distance_calls
+FOR EACH ROW
+    BEGIN
+        SELECT Long_distance_calls_seq.nextval
+        INTO :new.Long_distance_call_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Connection_requests_seq">
+CREATE SEQUENCE Connection_requests_seq START WITH 1
+</entry>
+
+<entry key="Drop_Connection_requests_seq">
+DROP SEQUENCE Connection_requests_seq
+</entry>
+
+<entry key="Connection_requests_id_tr">
+CREATE OR REPLACE TRIGGER Connection_requests_id_tr
+BEFORE INSERT ON Connection_requests
+FOR EACH ROW
+    BEGIN
+        SELECT Connection_requests_seq.nextval
+        INTO :new.Connection_request_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Installing_possibilities_seq">
+CREATE SEQUENCE Installing_possibilities_seq START WITH 1
+</entry>
+
+<entry key="Drop_Installing_possibilities_seq">
+DROP SEQUENCE Installing_possibilities_seq
+</entry>
+
+<entry key="Installing_possibilities_id_tr">
+CREATE OR REPLACE TRIGGER Installing_possibilities_id_tr
+BEFORE INSERT ON Installing_possibilities
+FOR EACH ROW
+    BEGIN
+        SELECT Installing_possibilities_seq.nextval
+        INTO :new.INSTALLING_POSSIBILITY_ID
+        FROM dual;
+    END;
+</entry>
+
+<entry key="Balances_debt_date_tr">
+CREATE OR REPLACE TRIGGER Balances_debt_date_tr
+    BEFORE INSERT ON Balances
+    FOR EACH ROW
+    BEGIN
+        IF (:new.LONG_DISTANCE_CALLS_DEBT != 0 AND :new.LONG_DIST_DEBT_DATE IS NULL) THEN
+        SELECT CURRENT_DATE INTO :new.LONG_DIST_DEBT_DATE FROM dual;
+        END IF;
+
+        IF (:new.SUBSCRIPTION_DEBT != 0 AND :new.SUBSCRIPTION_DEBT_DATE IS NULL) THEN
+        SELECT CURRENT_DATE INTO :new.SUBSCRIPTION_DEBT_DATE FROM dual;
+        END IF;
+    END;
+</entry>
+
+
+<entry key="Balances_debt_date_update_tr">
+CREATE OR REPLACE TRIGGER Balances_debt_date_update_tr
+    BEFORE UPDATE ON Balances
+    FOR EACH ROW
+    BEGIN
+        IF (:old.LONG_DISTANCE_CALLS_DEBT = 0 AND :new.LONG_DISTANCE_CALLS_DEBT != 0) THEN
+        SELECT CURRENT_DATE INTO :new.LONG_DIST_DEBT_DATE FROM dual;
+        END IF;
+
+        IF (:old.SUBSCRIPTION_DEBT = 0 AND :new.SUBSCRIPTION_DEBT != 0) THEN
+        SELECT CURRENT_DATE INTO :new.SUBSCRIPTION_DEBT_DATE FROM dual;
+        END IF;
+    END;
+</entry>
+
+<entry key="calculate_call_cost">
+CREATE OR REPLACE FUNCTION calculate_call_cost(start_date IN DATE, end_date IN DATE, price_per_min IN INT)
+    RETURN NUMBER
+    AS
+    duration_min NUMBER;
+    BEGIN
+        duration_min := CEIL(24 * 60 * (end_date - start_date));
+        RETURN duration_min * price_per_min;
+    END;
+</entry>
+
+<entry key="changeCallerDebt">
+CREATE OR REPLACE PROCEDURE changeCallerDebt(caller_id IN INT, delta IN NUMBER)
+    AS
+    current_debt NUMBER;
+    updated_debt NUMBER;
+    BEGIN
+        SELECT LONG_DISTANCE_CALLS_DEBT INTO current_debt FROM BALANCES;
+        updated_debt := current_debt + delta;
+        EXECUTE IMMEDIATE 'UPDATE BALANCES SET LONG_DISTANCE_CALLS_DEBT = ' || updated_debt || ' WHERE CALLER_ID = ' || caller_id;
+    END;
+</entry>
+
+<entry key="Calls_price_calculating_tr">
+CREATE OR REPLACE TRIGGER Calls_price_calculating_tr
+    BEFORE INSERT OR UPDATE ON LONG_DISTANCE_CALLS
+    FOR EACH ROW
+    DECLARE
+    var_price_per_min NUMBER;
+    call_old_cost NUMBER;
+    call_new_cost NUMBER;
+    var_caller_id INT;
+    BEGIN
+        SELECT PRICE_PER_MINUTE INTO var_price_per_min
+        FROM LONG_DISTANCE_CALL_PRICES WHERE PRICE_NAME = 'Стандартная цена';
+
+        call_new_cost := CALCULATE_CALL_COST(:new.START_DATE, :new.END_DATE, var_price_per_min);
+
+        SELECT call_new_cost INTO :new.CAll_PRICE FROM dual;
+    END;
+</entry>
+
+<entry key="Connection_requests_date_tr">
+CREATE OR REPLACE TRIGGER Connection_requests_date_tr
+    BEFORE INSERT ON CONNECTION_REQUESTS
+    FOR EACH ROW
+    BEGIN
+        IF (:new.Request_date IS NULL) THEN
+        SELECT CURRENT_DATE INTO :new.Request_date FROM dual;
+        END IF;
+    END;
+</entry>
+
+</properties>

@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+<entry key="Telephone_exchanges">BEGIN
+    INSERT INTO Telephone_exchanges VALUES(1);
+    INSERT INTO Telephone_exchanges VALUES(2);
+    INSERT INTO Telephone_exchanges VALUES(3);
+    INSERT INTO Telephone_exchanges VALUES(4);
+END;</entry>
+
+<entry key="City_exchanges">BEGIN
+    INSERT INTO City_exchanges VALUES (1, 'Новосибирск');
+    INSERT INTO City_exchanges VALUES (2, 'Санкт-Петербург');
+END;</entry>
+
+<entry key="Institutional_exchanges">BEGIN
+    INSERT INTO Institutional_exchanges VALUES (3, 'НПО Сибсельмаш');
+END;</entry>
+
+<entry key="Departmental_exchanges">BEGIN
+    INSERT INTO Departmental_exchanges VALUES (4, 'ГУ МВД по НСО');
+END;</entry>
+
+<entry key="Connection_prices">BEGIN
+    INSERT INTO Connection_prices VALUES (default, 'Стандартное подключение', 1000);
+    INSERT INTO Connection_prices VALUES (default, 'Подключение на межгород', 1200);
+END;</entry>
+
+<entry key="Long_distance_call_prices">BEGIN
+    INSERT INTO Long_distance_call_prices VALUES (default, 'Стандартная цена', 3);
+END;</entry>
+
+<entry key="Phone_types">BEGIN
+    INSERT INTO Phone_types VALUES (default, 'Основной');
+    INSERT INTO Phone_types VALUES (default, 'Параллельный');
+    INSERT INTO Phone_types VALUES (default, 'Спаренный');
+END;</entry>
+
+<entry key="Subscription_fees">BEGIN
+    INSERT INTO Subscription_fees VALUES (default, 1, 0, 0, 300);
+    INSERT INTO Subscription_fees VALUES (default, 1, 0, 1, 400);
+    INSERT INTO Subscription_fees VALUES (default, 1, 1, 0, 270);
+    INSERT INTO Subscription_fees VALUES (default, 1, 1, 1, 360);
+    INSERT INTO Subscription_fees VALUES (default, 2, 0, 0, 400);
+    INSERT INTO Subscription_fees VALUES (default, 2, 0, 1, 500);
+    INSERT INTO Subscription_fees VALUES (default, 2, 1, 0, 360);
+    INSERT INTO Subscription_fees VALUES (default, 2, 1, 1, 450);
+    INSERT INTO Subscription_fees VALUES (default, 3, 0, 0, 550);
+    INSERT INTO Subscription_fees VALUES (default, 3, 0, 1, 650);
+    INSERT INTO Subscription_fees VALUES (default, 3, 1, 0, 495);
+    INSERT INTO Subscription_fees VALUES (default, 3, 1, 1, 585);
+END;</entry>
+
+<entry key="Phone_numbers">BEGIN
+    INSERT INTO Phone_numbers VALUES (default, '317-21-14', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '313-26-80', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '380-93-97', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '321-13-10', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '357-61-98', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '324-79-66', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '365-79-24', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '352-20-95', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '317-25-64', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '374-88-38', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '323-51-86', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '330-79-87', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '342-30-77', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '350-78-75', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '386-39-18', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '317-62-29', 1, 0);
+    INSERT INTO Phone_numbers VALUES (default, '313-92-93', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '320-28-19', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '339-14-31', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '323-95-52', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '348-85-37', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '378-18-25', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '344-22-44', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '372-48-36', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '327-66-31', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '347-34-85', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '356-32-84', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '312-17-67', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '376-82-25', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '341-25-13', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '311-85-55', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '361-17-19', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '339-70-60', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '399-83-90', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '345-92-41', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '342-28-93', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '399-47-54', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '377-45-41', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '326-84-21', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '373-91-81', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '388-79-45', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '342-87-62', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '314-79-60', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '383-40-29', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '314-46-47', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '396-66-24', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '350-22-67', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '339-83-61', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '313-29-95', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '320-43-46', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '384-21-43', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '399-10-51', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '313-65-38', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '351-52-52', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '310-22-22', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '328-76-11', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '379-82-27', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '381-84-57', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '348-42-19', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '391-70-94', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '345-39-12', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '395-47-30', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '333-40-85', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '341-99-32', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '388-82-12', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '379-28-15', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '340-59-94', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '335-47-68', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '390-78-78', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '362-67-59', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '314-97-65', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '350-11-61', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '314-71-68', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '395-64-89', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '367-13-65', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '355-68-15', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '322-79-12', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '316-95-71', 1, 1);
+    INSERT INTO Phone_numbers VALUES (default, '375-16-52', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '320-15-12', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '380-67-26', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '327-23-50', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '375-18-18', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '387-24-53', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '366-10-59', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '335-54-29', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '320-10-59', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '310-75-35', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '395-95-11', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '348-30-19', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '360-61-14', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '350-97-41', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '383-16-63', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '335-55-71', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '376-10-37', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '385-52-80', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '372-52-94', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '326-34-13', 2, 1);
+    INSERT INTO Phone_numbers VALUES (default, '334-92-13', 2, 1);
+END;</entry>
+
+<entry key="Clients">BEGIN
+    INSERT INTO Clients VALUES (default, 'Исаков', 'Бронислав', 'Давидович', 'M', TO_DATE('3.02.1980', 'dd.mm.yyyy'), 1);
+    INSERT INTO Clients VALUES (default, 'Петров', 'Корней', 'Владиславович', 'M', TO_DATE('8.11.1975', 'dd.mm.yyyy'), 0);
+    INSERT INTO Clients VALUES (default, 'Кузьмин', 'Никифор', 'Донатович', 'M', TO_DATE('28.04.2000', 'dd.mm.yyyy'), 0);
+    INSERT INTO Clients VALUES (default, 'Самсонов', 'Мирослав', 'Михаилович', 'M', TO_DATE('16.05.1953', 'dd.mm.yyyy'), 1);
+    INSERT INTO Clients VALUES (default, 'Ершов', 'Арсений', 'Михайлович', 'M', TO_DATE('11.12.1976', 'dd.mm.yyyy'), 0);
+    INSERT INTO Clients VALUES (default, 'Николаева', 'Юстина', 'Ростиславовна', 'F', TO_DATE('12.07.1999', 'dd.mm.yyyy'), 0);
+    INSERT INTO Clients VALUES (default, 'Зимина', 'Зоя', 'Дмитрьевна', 'F', TO_DATE('25.06.2002', 'dd.mm.yyyy'), 0);
+    INSERT INTO Clients VALUES (default, 'Филиппова', 'Мила', 'Валерьевна', 'F', TO_DATE('13.08.1985', 'dd.mm.yyyy'), 0);
+    INSERT INTO Clients VALUES (default, 'Некрасова', 'Мия', 'Васильевна', 'F', TO_DATE('7.02.1966', 'dd.mm.yyyy'), 1);
+    INSERT INTO Clients VALUES (default, 'Орехова', 'Елена', 'Константиновна', 'F', TO_DATE('21.02.1991', 'dd.mm.yyyy'), 0);
+END;</entry>
+
+<entry key="Callers">BEGIN
+    INSERT INTO Callers VALUES (default, 1, 1, 0, 1);
+    INSERT INTO Callers VALUES (default, 1, 2, 0, 1);
+    INSERT INTO Callers VALUES (default, 1, 3, 1, 0);
+    INSERT INTO Callers VALUES (default, 1, 4, 0, 1);
+    INSERT INTO Callers VALUES (default, 1, 5, 0, 1);
+    INSERT INTO Callers VALUES (default, 1, 6, 0, 0);
+    INSERT INTO Callers VALUES (default, 1, 7, 1, 1);
+    INSERT INTO Callers VALUES (default, 1, 8, 0, 1);
+    INSERT INTO Callers VALUES (default, 1, 9, 0, 0);
+    INSERT INTO Callers VALUES (default, 1, 10, 0, 1);
+END;</entry>
+
+<entry key="Address">BEGIN
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 44);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 45);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 46);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 47);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 48);--
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 49);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 50);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 51);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 52);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 53);--
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 54);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 55);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 56);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 57);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 58);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 59);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 60);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 61);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 62);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Лескова', 63);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 72);--
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 73);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 74);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 75);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 76);--
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 77);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 78);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 79);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 80);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 81);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 82);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 83);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 84);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 85);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 86);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 87);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 88);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 89);--
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 90);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Кирова', 91);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 1);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 2);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 3);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 4);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 5);--
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 6);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 7);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 8);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 9);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 10);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 11);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 12);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 13);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 14);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 15);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 16);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 17);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 18);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 19);
+    INSERT INTO Address VALUES (default, 630008, 'Новосибирск', 'Октябрьский район', 'Ленинградская', 20);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 23);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 24);--
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 25);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 26);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 27);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 28);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 29);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 30);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 31);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 32);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 33);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 34);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 35);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 36);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 37);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 38);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 39);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 40);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 41);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Трудовая', 42);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 35);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 36);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 37);--
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 38);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 39);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 40);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 41);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 42);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 43);--
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 44);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 45);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 46);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 47);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 48);--
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 49);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 50);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 51);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 52);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 53);
+    INSERT INTO Address VALUES (default, 630091, 'Новосибирск', 'Центральный район', 'Романова', 54);
+
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 1);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 2);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 3);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 4);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 5);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 6);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 7);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 8);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 9);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 10);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 11);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 12);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 13);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 14);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 15);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 16);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 17);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 18);
+    INSERT INTO Address VALUES (default, 190031, 'Санкт-Петербург', 'Адмиралтейский район', 'Большая Морская', 19);
+END;</entry>
+
+<entry key="Phones">BEGIN
+    INSERT INTO Phones VALUES (default, 1, 1, 1, 5, 3);
+    INSERT INTO Phones VALUES (default, 2, 1, 2, 10, 86);
+    INSERT INTO Phones VALUES (default, 3, 1, 3, 21, 16);
+    INSERT INTO Phones VALUES (default, 4, 1, 4, 25, 1);
+    INSERT INTO Phones VALUES (default, 5, 1, 5, 38, 13);
+
+    INSERT INTO Phones VALUES (default, 11, 2, 1, 5, 3);
+    INSERT INTO Phones VALUES (default, 11, 2, 2, 5, 3);
+    INSERT INTO Phones VALUES (default, 12, 2, 3, 25, 1);
+    INSERT INTO Phones VALUES (default, 12, 2, 4, 25, 1);
+
+    INSERT INTO Phones VALUES (default, 13, 3, 2, 21, 16);
+    INSERT INTO Phones VALUES (default, 14, 3, 3, 21, 17);
+    INSERT INTO Phones VALUES (default, 15, 3, 4, 38, 14);
+    INSERT INTO Phones VALUES (default, 16, 3, 5, 38, 13);
+
+    INSERT INTO Phones VALUES (default, 6, 1, 6, 101, 3);
+    INSERT INTO Phones VALUES (default, 7, 1, 7, 115, 4);
+    INSERT INTO Phones VALUES (default, 8, 1, 8, 109, 22);
+    INSERT INTO Phones VALUES (default, 9, 1, 9, 110, 93);
+    INSERT INTO Phones VALUES (default, 10, 1, 10, 113, 51);
+END;</entry>
+
+<entry key="Balances">BEGIN
+    INSERT INTO Balances VALUES (1, 100, 0, 0, TO_DATE('12.04.2021', 'dd.mm.yyyy'), null);
+    INSERT INTO Balances VALUES (2, 0, 321, 302, null, TO_DATE('11.03.2021', 'dd.mm.yyyy'));
+    INSERT INTO Balances VALUES (3, 0, 0, 319, null, null);
+    INSERT INTO Balances VALUES (4, 0, 283, 0, null, TO_DATE('01.01.2021', 'dd.mm.yyyy'));
+    INSERT INTO Balances VALUES (5, 0, 329, 1239, null, TO_DATE('14.04.2021', 'dd.mm.yyyy'));
+    INSERT INTO Balances VALUES (6, 530, 0, 0, TO_DATE('27.03.2021', 'dd.mm.yyyy'), null);
+    INSERT INTO Balances VALUES (7, 0, 93, 1500, null, TO_DATE('13.04.2021', 'dd.mm.yyyy'));
+    INSERT INTO Balances VALUES (8, 0, 0, 0, null, null);
+    INSERT INTO Balances VALUES (9, 120, 0, 230, TO_DATE('13.04.2021', 'dd.mm.yyyy'), null);
+    INSERT INTO Balances VALUES (10, 0, 293, 0, null, TO_DATE('07.04.2021', 'dd.mm.yyyy'));
+END;</entry>
+
+<entry key="Public_phones">BEGIN
+    INSERT INTO Public_phones VALUES (default, 10, 1);
+    INSERT INTO Public_phones VALUES (default, 20, 1);
+    INSERT INTO Public_phones VALUES (default, 40, 1);
+    INSERT INTO Public_phones VALUES (default, 60, 1);
+    INSERT INTO Public_phones VALUES (default, 80, 1);
+    INSERT INTO Public_phones VALUES (default, 90, 1);
+    INSERT INTO Public_phones VALUES (default, 100, 1);
+    INSERT INTO Public_phones VALUES (default, 85, 1);
+    INSERT INTO Public_phones VALUES (default, 95, 1);
+    INSERT INTO Public_phones VALUES (default, 5, 1);
+    INSERT INTO Public_phones VALUES (default, 102, 2);
+    INSERT INTO Public_phones VALUES (default, 118, 2);
+    INSERT INTO Public_phones VALUES (default, 111, 2);
+END;</entry>
+
+<entry key="Long_distance_calls">BEGIN
+    INSERT INTO Long_distance_calls VALUES (default, 1, 18, TO_DATE('03.03.2021-12.45', 'dd.mm.yyyy-hh24.mi'), TO_DATE('03.03.2021-12.48', 'dd.mm.yyyy-hh24.mi'), null);
+    INSERT INTO Long_distance_calls VALUES (default, 2, 17, TO_DATE('03.03.2021-18.34', 'dd.mm.yyyy-hh24.mi'), TO_DATE('03.03.2021-19.04', 'dd.mm.yyyy-hh24.mi'), null);
+    INSERT INTO Long_distance_calls VALUES (default, 3, 16, TO_DATE('03.03.2021-09.02', 'dd.mm.yyyy-hh24.mi'), TO_DATE('03.03.2021-09.12', 'dd.mm.yyyy-hh24.mi'), null);
+    INSERT INTO Long_distance_calls VALUES (default, 4, 15, TO_DATE('03.03.2021-08.45', 'dd.mm.yyyy-hh24.mi'), TO_DATE('03.03.2021-10.49', 'dd.mm.yyyy-hh24.mi'), null);
+    INSERT INTO Long_distance_calls VALUES (default, 5, 14, TO_DATE('03.03.2021-17.13', 'dd.mm.yyyy-hh24.mi'), TO_DATE('03.03.2021-17.20', 'dd.mm.yyyy-hh24.mi'), null);
+    INSERT INTO Long_distance_calls VALUES (default, 14, 13, TO_DATE('03.03.2021-21.05', 'dd.mm.yyyy-hh24.mi'), TO_DATE('03.03.2021-21.27', 'dd.mm.yyyy-hh24.mi'), null);
+    INSERT INTO Long_distance_calls VALUES (default, 15, 9, TO_DATE('03.03.2021-19.34', 'dd.mm.yyyy-hh24.mi'), TO_DATE('03.03.2021-19.35', 'dd.mm.yyyy-hh24.mi'), null);
+    INSERT INTO Long_distance_calls VALUES (default, 16, 8, TO_DATE('03.03.2021-11.07', 'dd.mm.yyyy-hh24.mi'), TO_DATE('03.03.2021-12.45', 'dd.mm.yyyy-hh24.mi'), null);
+    INSERT INTO Long_distance_calls VALUES (default, 17, 7, TO_DATE('03.03.2021-03.51', 'dd.mm.yyyy-hh24.mi'), TO_DATE('03.03.2021-03.52', 'dd.mm.yyyy-hh24.mi'), null);
+    INSERT INTO Long_distance_calls VALUES (default, 18, 6, TO_DATE('03.03.2021-05.15', 'dd.mm.yyyy-hh24.mi'), TO_DATE('03.03.2021-05.20', 'dd.mm.yyyy-hh24.mi'), null);
+END;</entry>
+
+<entry key="Connection_requests">BEGIN
+    INSERT INTO Connection_requests VALUES (default, 2, 101, 42, 1, TO_DATE('12.02.2021', 'dd.mm.yyyy'));
+    INSERT INTO Connection_requests VALUES (default, 2, 102, 116, 2, TO_DATE('03.02.2021', 'dd.mm.yyyy'));
+    INSERT INTO Connection_requests VALUES (default, 2, 103, 37, 3, TO_DATE('24.02.2021', 'dd.mm.yyyy'));
+    INSERT INTO Connection_requests VALUES (default, 2, 104, 3, 4, TO_DATE('19.02.2021', 'dd.mm.yyyy'));
+    INSERT INTO Connection_requests VALUES (default, 2, 105, 44, 5, TO_DATE('09.02.2021', 'dd.mm.yyyy'));
+    INSERT INTO Connection_requests VALUES (default, 2, 106, 56, 6, TO_DATE('12.02.2021', 'dd.mm.yyyy'));
+    INSERT INTO Connection_requests VALUES (default, 2, 107, 81, 7, TO_DATE('25.02.2021', 'dd.mm.yyyy'));
+    INSERT INTO Connection_requests VALUES (default, 2, 108, 12, 8, TO_DATE('01.03.2021', 'dd.mm.yyyy'));
+    INSERT INTO Connection_requests VALUES (default, 2, 109, 21, 9, TO_DATE('19.03.2021', 'dd.mm.yyyy'));
+    INSERT INTO Connection_requests VALUES (default, 2, 110, 29, 10, TO_DATE('20.03.2021', 'dd.mm.yyyy'));
+END;</entry>
+
+<entry key="Installing_possibilities">BEGIN
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 1, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 2, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 3, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 4, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 5, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 6, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 7, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 8, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 9, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 10, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 11, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 12, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 13, 1);
+
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 21, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 22, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 23, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 24, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 25, 1);
+
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 35, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 36, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 37, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 38, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 39, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 40, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 41, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 43, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 44, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 45, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 46, 1);
+
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 60, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 61, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 62, 1);
+
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 80, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 81, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 82, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 83, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 84, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 85, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 86, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 87, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 88, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 89, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 90, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 91, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 92, 1);
+
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 94, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 95, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 96, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 97, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 98, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 99, 1);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 100, 1);
+
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 101, 2);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 102, 2);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 103, 2);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 104, 2);
+
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 106, 2);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 107, 2);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 108, 2);
+
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 110, 2);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 111, 2);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 112, 2);
+
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 115, 2);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 116, 2);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 117, 2);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 118, 2);
+    INSERT INTO INSTALLING_POSSIBILITIES VALUES (default, 119, 2);
+END;</entry>
+
+</properties>
